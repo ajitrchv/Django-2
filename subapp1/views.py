@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound,Http404
+from django.http import HttpResponse, HttpResponseNotFound,Http404, HttpResponseRedirect
 
 articles = {
     "sports":"This is Sports Page!",
@@ -9,7 +9,7 @@ articles = {
 
 def news(request,topic):
     try:
-        result =articles[topic]
+        result = articles[topic]
         return HttpResponse(result)
     except:
         raise Http404('404! Page not Found!')
@@ -17,3 +17,8 @@ def news(request,topic):
 def add(request, num1, num2):
     result = num1+num2
     return HttpResponse(str(result))
+#----> Conversion method
+def page_num(request,num):
+    topiclist =  list(articles.keys())
+    topic = topiclist[num]  
+    return HttpResponseRedirect(topic)
