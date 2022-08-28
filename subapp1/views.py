@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound,Http404, HttpResponseRedirect
 from django.template import Context, loader
-
+from django.urls import reverse
 
 articles = {
     "sports":"This is Sports Page!",
@@ -27,7 +27,16 @@ def news(request,topic):
 def page_num(request,num):
     try:
         topiclist =  list(articles.keys())
-        topic = topiclist[num]  
-        return HttpResponseRedirect(topic)
+        topic = topiclist[num]
+        
+        #---> using reverse method lookup
+        webpage = reverse('topic-page',args=[topic])
+        #print(webpage)
+        return HttpResponseRedirect(webpage)
     except:
-        raise Http404('404! Page NNot Found!')
+        raise Http404('404! Page Not Found!')
+    
+
+def page_home(request):
+    return HttpResponseRedirect(reverse('page-home'))
+    
