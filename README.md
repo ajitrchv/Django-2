@@ -1,1 +1,2 @@
-"# Django-1" 
+"# Django-2"
+Templates and stuff
